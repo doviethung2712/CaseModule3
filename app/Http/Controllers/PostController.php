@@ -19,7 +19,7 @@ class PostController extends Controller
     {
         $posts = $this->postRepository->getAll();
         // dd($posts);
-        return view('backend.post.list',compact('posts'));
+        return view('backend.post.list', compact('posts'));
     }
 
 
@@ -30,7 +30,7 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->only('title','content','user_id');
+        $data = $request->only('title', 'content', 'user_id');
         $this->postRepository->store($request);
         return redirect()->route('post.index');
     }
@@ -38,21 +38,22 @@ class PostController extends Controller
     public function show($id)
     {
         $post = $this->postRepository->getById($id);
-        return view('backend.post.detail',compact('post'));
+        dd($post);
+        return view('backend.post.detail', compact('post'));
     }
 
 
     public function edit($id)
     {
         $post = $this->postRepository->getById($id);
-        return view('backend.post.update',compact('post'));
+        return view('backend.post.update', compact('post'));
     }
 
 
     public function update(Request $request, $id)
     {
-        $data = $request->only('title','content','user_id');
-        $this->postRepository->update($data , $id);
+        $data = $request->only('title', 'content', 'user_id');
+        $this->postRepository->update($data, $id);
         return redirect()->route('post.index');
     }
 

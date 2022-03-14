@@ -18,6 +18,16 @@ class PostRepository extends BaseRepository
 
     public function update($data, $id)
     {
-        DB::table($this->table)->where('id',$id)->update($data);
+        DB::table($this->table)->where('id', $id)->update($data);
+    }
+
+    public function getById($id)
+    {
+        return DB::table($this->table)
+            ->join('users', 'posts.user_id', '=', 'users.id')
+            // ->join('comments', 'posts.id', '=', 'comments.post_id')
+            ->where('posts.id', $id)
+            ->select('posts.*', 'users.name as username')
+            ->first();
     }
 }
